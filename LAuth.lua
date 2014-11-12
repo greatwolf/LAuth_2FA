@@ -35,7 +35,8 @@ local check_args = function(args)
   args.action = action
   local account_path = basepath(args.file)
   if not account_path then
-     args.file = basepath(arg[0]) .. args.file
+    local LAuthpath = basepath(arg[0]) or ""
+    args.file = LAuthpath .. args.file
   end
 end
 
