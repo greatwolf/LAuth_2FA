@@ -1,4 +1,7 @@
-require 'pl.app'.require_here()
+package.path  = arg[0]:gsub("(.-[\\/]?)[%w_.]+(%.luac?)$", "%1?%2;") .. package.path
+package.cpath = arg[0]:gsub("(.-[\\/]?)[%w_.]+(%.luac?)$", "%1?.dll;") .. package.cpath
+
+
 require 'rfc6238'
 local pp    = require 'pl.pretty'
 local lapp  = require 'pl.lapp'
