@@ -2,8 +2,8 @@
 -- 2-factor Authentication as outlined in 
 -- rfc6238 and rfc4226.
 
-local sha1   = require 'sha1'
-local base32 = require 'basexx'.from_base32
+local hmac   = require 'hmac'
+local base32 = require 'extern.basexx'.from_base32
 
 local function hexstr(raw)
   assert(type(raw) == "string")
@@ -30,7 +30,7 @@ function HOTP(secret, c, digits)
   assert(type(c) == 'number')
 
   c = hexraw(("%016x"):format(c))
-  local hash = sha1.hmac_binary(secret, c)
+  local hash = hmac("sha1", c, secret, true)
   -- dynamic truck
   local off_begin = hash:sub(#hash):byte() % 16 + 1
   local off_end = off_begin + 3
