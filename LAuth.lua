@@ -9,15 +9,15 @@ local lapp  = require 'pl.lapp'
 local args = lapp
 [[
 LAuth - A simple CLI app for two-factor authentication.
-  Usage: LAuth <action> arguments...
-  
-  Actions:
-    -a, --add                         Add a new 2FA base32-encoded HOTP token
-    -r, --remove                      Remove an existing token
-        --show                        Show OTP of all tokens in account
+Usage: LAuth <action> arguments...
 
-  options:
-    -f, --file (default account.lua)    Filename of the account storage
+Actions:
+  -a, --add     <name> <secret token>   Add a new 2FA base32-encoded HOTP token
+  -r, --remove  <name>                  Remove an existing token
+      --show    [search pattern]        Show OTP of all tokens in account
+
+options:
+  -f, --file (default account.lua)      Filename of the account storage
 ]]
 
 local basepath = function(filepath)
@@ -71,13 +71,13 @@ local handlers =
 
   add = function (accounts, args)
     local name, secret = args[1], args[2]
-    lapp.assert(name and secret, "LAuth add [account name] [secret key]")
+    lapp.assert(name and secret, "LAuth add <name> <secret token>")
     accounts[name] = secret
   end,
 
   remove = function (accounts, args)
     local name = args[1]
-    lapp.assert(name, "LAuth remove [account name]")
+    lapp.assert(name, "LAuth remove <name>")
     accounts[name] = nil
   end,
 }
