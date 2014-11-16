@@ -400,6 +400,7 @@ function lapp.process_options_string(str,args)
     return results
 end
 
+local arg = _G.arg
 if arg then
     script = arg[0]:gsub('.+[\\/]',''):gsub('%.%a+$','')
 else
@@ -413,5 +414,4 @@ setmetatable(lapp, {
 
 
 return lapp
-
 
