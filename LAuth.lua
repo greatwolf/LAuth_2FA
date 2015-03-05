@@ -47,10 +47,9 @@ local account =
 {
   load = function(filename)
     local infile = io.open(filename, 'r')
-    if not infile 
-    then return {}
-    else return pp.read(infile:read '*a') or {}
-    end
+    return not infile
+           and {}
+           or pp.read(infile:read '*a')
   end,
 
   save = pp.dump,
@@ -85,5 +84,6 @@ local handlers =
 
 check_args(args)
 local accounts = account.load(args.file)
+assert(accounts, "Could not load " .. args.file)
 handlers[args.action](accounts, args)
 account.save(accounts, args.file)
