@@ -31,10 +31,10 @@ function HOTP(secret, c, digits)
 
   c = hexraw(("%016x"):format(c))
   local hash = hmac("sha1", c, secret, true)
-  -- dynamic truck
+  -- dynamic trunc
   local off_begin = hash:sub(#hash):byte() % 16 + 1
-  local off_end = off_begin + 3
-  local Sbytes = hash:sub(off_begin, off_end)
+  local off_end   = off_begin + 3
+  local Sbytes    = hash:sub(off_begin, off_end)
 
   assert(#Sbytes == 4)
   Sbytes = tonumber(hexstr(Sbytes), 16)
